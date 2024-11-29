@@ -1,0 +1,22 @@
+Evaluation Report
+=================
+Date: 2024-11-20
+
+Model: Naive Bayes
+------------------
+Accuracy: 91.25%
+
+Model: Linear Regression
+------------------------
+Mean Squared Error: 3.72
+R^2 Score: 0.92
+
+Model: Neural Network
+---------------------
+Mean Squared Error: 2.85
+Mean Absolute Error: 1.15
+R^2 Score: 0.95
+
+Summary:
+---------
+The Neural Network model performed best with the lowest Mean Squared Error and highest R^2 score, making it the most reliable model for stock price predictions.

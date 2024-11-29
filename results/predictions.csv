@@ -1,0 +1,7 @@
+Date,Actual_Close,Predicted_Close,Model
+2024-01-02,150.25,151.10,Naive Bayes
+2024-01-03,152.00,151.80,Naive Bayes
+2024-01-02,150.25,149.90,Linear Regression
+2024-01-03,152.00,152.10,Linear Regression
+2024-01-02,150.25,151.50,Neural Network
+2024-01-03,152.00,151.95,Neural Network
