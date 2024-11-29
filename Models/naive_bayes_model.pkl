@@ -1,0 +1,44 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+import joblib
+
+def train_and_evaluate_nb():
+    # Load the dataset
+    data = pd.read_csv('data/stock_prices.csv')
+    
+    # Feature Engineering (using basic columns as features)
+    data['SMA_5'] = data['Close'].rolling(window=5).mean()
+    data['SMA_20'] = data['Close'].rolling(window=20).mean()
+    data.dropna(inplace=True)
+    
+    # Features and target variable
+    X = data[['SMA_5', 'SMA_20']]
+    y = (data['Close'].shift(-1) > data['Close']).astype(int)  # Binary target: 1 if price goes up, else 0
+    
+    # Split the data
+    X_train, X_test, y_train, y_test = train_test_split(X, y[:-1], test_size=0.2, random_state=42)
+    
+    # Standardize the data
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+    
+    # Train Naive Bayes Model
+    model = GaussianNB()
+    model.fit(X_train_scaled, y_train)
+    
+    # Predict and evaluate
+    predictions = model.predict(X_test_scaled)
+    accuracy = accuracy_score(y_test, predictions)
+    print(f"Naive Bayes Model Accuracy: {accuracy * 100:.2f}%")
+    
+    # Save the model and scaler
+    joblib.dump(model, 'models/naive_bayes_model.pkl')
+    joblib.dump(scaler, 'models/scaler.pkl')
+    print("Model and scaler saved in the models/ directory.")
+
+if __name__ == "__main__":
+    train_and_evaluate_nb()
